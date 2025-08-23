@@ -15,7 +15,11 @@ export default function SignInPage() {
       const res = await fetch("https://dummyjson.com/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, expiresInMins: 30 }),
+        body: JSON.stringify({
+          username: email, 
+          password,
+          expiresInMins: 30,
+        }),
         credentials: "include",
       }).then((res) => res.json());
 
@@ -27,8 +31,10 @@ export default function SignInPage() {
 
       setResponse(data.token);
       toast.success("Signed in successfully !");
-    } catch (error: undefined | unknown) {
-      toast.error("An unexpected error occurred !");
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "An unexpected error occurred!"
+      );
     }
   };
 
