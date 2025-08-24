@@ -1,15 +1,41 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 import toast from "react-hot-toast";
 import InputField from "@/components/InputField";
 
 export default function SignInPage() {
+  const [isMobile, setIsMobile] = useState(false); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState("");
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        setIsMobile(window.innerWidth < 576);
+      }
+    }, []);
+
+      const validateForm = () => {
+        const next: { email?: string; password?: string } = {};
+        if (!email.trim()) next.email = "Email is required.";
+        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+          next.email = "Please enter a valid email address.";
+
+        if (!password.trim()) next.password = "Password is required.";
+        else if (password.length < 6)
+          next.password = "Password must be at least 6 characters.";
+
+        setErrors(next);
+        return Object.keys(next).length === 0;
+      };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateForm()) return;
+    setLoading(true);
 
     try {
       const res = await fetch("/api/login", {
@@ -33,13 +59,21 @@ export default function SignInPage() {
       toast.error(
         error instanceof Error ? error.message : "An unexpected error occurred!"
       );
+    } finally {
+      setLoading(false);
     }
   };
 
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">
-      <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-6">
+    <div
+      className={`flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4`}
+    >
+      <div
+        className={`${
+          isMobile ? "" : "w-full max-w-sm rounded-2xl bg-white shadow-lg p-6"
+        }`}
+      >
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">
           Welcome
         </h2>
@@ -55,8 +89,9 @@ export default function SignInPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="name@example.com"
+            placeholder="Enter your Email"
             required
+            error={errors.email ?? null}
           />
 
           {/* Password */}
@@ -68,6 +103,7 @@ export default function SignInPage() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
             required
+            error={errors.password ?? null}
           />
 
           {/* Submit button */}
@@ -75,16 +111,19 @@ export default function SignInPage() {
             type="submit"
             className="w-full bg-indigo-600 text-white font-medium py-2 rounded-lg hover:bg-indigo-700 active:bg-indigo-800 transition-colors shadow-sm"
           >
-            Sign In
+            {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
-        {/* Footer */}
+        {/* Sign up */}
         <p className="mt-6 text-center text-sm text-gray-600">
           Don’t have an account?{" "}
-          <a href="#" className="text-indigo-600 font-medium hover:underline">
+          <Link
+            href="/sign-up"
+            className="text-indigo-600 font-medium hover:underline"
+          >
             Create one
-          </a>
+          </Link>
         </p>
       </div>
     </div>
