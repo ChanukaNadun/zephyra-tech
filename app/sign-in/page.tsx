@@ -157,7 +157,7 @@ export default function SignInPage() {
 
             <button
               type="button"
-              onClick={() => toast("GitHub sign-in coming soon")}
+              onClick={() => toast("Google sign-in coming soon")}
               className="w-full inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 text-slate-700 font-medium py-2.5 hover:bg-slate-50 active:bg-slate-100 transition-colors"
             >
               {/* <GoogleIcon className="h-4 w-4" /> */}
