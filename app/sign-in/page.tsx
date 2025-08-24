@@ -81,7 +81,7 @@ export default function SignInPage() {
     <div className="relative min-h-screen bg-gradient-to-br from-indigo-50 via-white to-slate-100 flex items-center justify-center p-4">
 
       <main className="w-full max-w-md">
-        {/* Top accent */}
+        {/* Developer */}
         {!isMobile && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm text-slate-500">
             <Sparkles className="h-4 w-4 text-indigo-400" />
@@ -93,7 +93,7 @@ export default function SignInPage() {
         )}
 
         {/* Card */}
-        <div className="rounded-2xl border border-slate-200 bg-white/80 shadow-xl backdrop-blur supports-[backdrop-filter]:bg-white/60 p-6">
+        <div className={`${!isMobile ? "rounded-2xl border border-slate-200 bg-white/80 shadow-xl backdrop-blur supports-[backdrop-filter]:bg-white/60 p-6 " : ""}`}>
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight text-center">
             Welcome
           </h1>
