@@ -1,15 +1,11 @@
 "use client";
-import Link from "next/link";
+import toast from "react-hot-toast";
+import SignInPage from "./sign-in/page";
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <Link
-        href="/sign-in"
-        className="px-6 py-2 bg-indigo-600 text-white rounded-lg"
-      >
-        Go to Sign In
-      </Link>
+    <div>
+      <SignInPage />
     </div>
   );
 }
