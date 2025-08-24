@@ -12,16 +12,14 @@ export default function SignInPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://dummyjson.com/auth/login", {
+      const res = await fetch("/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: email, 
-          password,
-          expiresInMins: 30,
+          email: "john@mail.com",
+          password: "changeme",
         }),
-        credentials: "include",
-      }).then((res) => res.json());
+      });
 
       const data = await res.json();
 
