@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import InputField from "@/components/InputField";
+import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
   import {
     Mail,
@@ -79,21 +80,23 @@ export default function SignInPage() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-indigo-50 via-white to-slate-100 flex items-center justify-center p-4">
-
       <main className="w-full max-w-md">
         {/* Developer */}
         {!isMobile && (
           <div className="absolute top-4 left-1/2 -translate-x-1/2 flex items-center gap-2 text-sm text-slate-500">
             <Sparkles className="h-4 w-4 text-indigo-400" />
-            <span>
-              Create{" "}
-              by Chanuka Nadun
-            </span>
+            <span>Create by Chanuka Nadun</span>
           </div>
         )}
 
         {/* Card */}
-        <div className={`${!isMobile ? "rounded-2xl border border-slate-200 bg-white/80 shadow-xl backdrop-blur supports-[backdrop-filter]:bg-white/60 p-6 " : ""}`}>
+        <div
+          className={`${
+            !isMobile
+              ? "rounded-2xl border border-slate-200 bg-white/80 shadow-xl backdrop-blur supports-[backdrop-filter]:bg-white/60 p-6 "
+              : ""
+          }`}
+        >
           <h1 className="text-3xl font-bold text-slate-900 tracking-tight text-center">
             Welcome
           </h1>
@@ -132,17 +135,29 @@ export default function SignInPage() {
               error={errors.password}
               leftIcon={<Lock className="h-4 w-4 text-slate-400" />}
               isSecret
-              revealIcons={{ show: <Eye className="h-4 w-4" />, hide: <EyeOff className="h-4 w-4" /> }}
+              revealIcons={{
+                show: <Eye className="h-4 w-4" />,
+                hide: <EyeOff className="h-4 w-4" />,
+              }}
             />
 
-            <button
+            {/* <button
               type="submit"
               disabled={loading}
               className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-medium py-2.5 shadow-sm hover:from-indigo-700 hover:to-violet-700 active:from-indigo-800 active:to-violet-800 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <LogIn className="h-4 w-4" />
               {loading ? "Signing in…" : "Sign in"}
-            </button>
+            </button> */}
+            <Button
+              className="w-full inline-flex items-center justify-center gap-2   hover:bg-indigo-700"
+              icon={<LogIn className="h-4 w-4" />}
+              bgColor="bg-indigo-600"
+              textColor="text-white"
+              loading={loading}
+              type="submit"
+              title={loading ? "Signing in…" : "Sign in"}
+            />
 
             <div className="relative my-2">
               <div className="absolute inset-0 flex items-center">
@@ -165,7 +180,6 @@ export default function SignInPage() {
             </button>
           </form>
 
-          
           <div className="mt-4 flex items-center justify-center gap-2 text-xs text-slate-500">
             <ShieldCheck className="h-4 w-4" />
             <span>We never store your password.</span>
@@ -174,7 +188,10 @@ export default function SignInPage() {
           {/* Signup Navigation */}
           <p className="mt-6 text-center text-sm text-slate-600">
             Don’t have an account?{" "}
-            <Link href="/sign-up" className="text-indigo-600 font-medium hover:underline">
+            <Link
+              href="/sign-up"
+              className="text-indigo-600 font-medium hover:underline"
+            >
               Create one
             </Link>
           </p>
