@@ -150,10 +150,11 @@ export default function SignInPage() {
               {loading ? "Signing in…" : "Sign in"}
             </button> */}
             <Button
-              className="w-full inline-flex items-center justify-center gap-2   hover:bg-indigo-700"
+              className="inline-flex items-center justify-center gap-2   hover:bg-indigo-700"
               icon={<LogIn className="h-4 w-4" />}
               bgColor="bg-indigo-600"
               textColor="text-white"
+              fullWidth={true}
               loading={loading}
               type="submit"
               title={loading ? "Signing in…" : "Sign in"}

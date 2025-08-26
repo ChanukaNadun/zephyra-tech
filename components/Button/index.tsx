@@ -10,6 +10,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   title: string;
   bgColor: string;
   textColor: string;
+  fullWidth?: boolean;
+  className?: string;
 }
 
 export default function Button({
@@ -18,6 +20,7 @@ export default function Button({
   title,
   icon,
   className,
+  fullWidth,
   bgColor,
   textColor,
   disabled,
@@ -28,7 +31,9 @@ export default function Button({
       type="button"
       disabled={disabled || loading}
       className={clsx(
-        `${bgColor} ${textColor} inline-flex items-center justify-center gap-2 rounded-lg font-medium py-2.5 shadow-sm transition-colors disabled:opacity-60 disabled:cursor-not-allowed`,
+        `${bgColor} ${textColor} ${
+          fullWidth ? "w-full" : ""
+        } inline-flex items-center justify-center gap-2 rounded-lg font-medium py-2.5 shadow-sm transition-colors disabled:opacity-60 disabled:cursor-not-allowed`,
         className
       )}
       {...props}
@@ -41,9 +46,9 @@ export default function Button({
         <>
           {icon}
           {children}
-          {title}
         </>
       )}
+      {title}
     </button>
   );
 }
